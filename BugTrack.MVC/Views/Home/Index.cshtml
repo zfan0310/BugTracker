@@ -1,0 +1,10 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+    var loginName = Session["loginName"] == null ? Request.Cookies["loginName"].Value : Session["loginName"].ToString();
+}
+<h2>
+    @loginName
+</h2>
+
+<h3>@Html.ActionLink("AddProject", "CreateProject", "Project")</h3>
+<h3>@Html.ActionLink("GetTicketTypeList", "CreateTicketType", "Ticket")</h3>
