@@ -52,6 +52,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ProjectDto.cs" />
+    <Compile Include="RoleDto.cs" />
     <Compile Include="TicketAttachmentsDto.cs" />
     <Compile Include="TicketCommentsDto.cs" />
     <Compile Include="TicketDto.cs" />
@@ -60,7 +61,7 @@
     <Compile Include="TicketPriorityDto.cs" />
     <Compile Include="TicketStatusDto.cs" />
     <Compile Include="TicketTypeDto.cs" />
-    <Compile Include="UserInfoDto.cs" />
+    <Compile Include="UserDto.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

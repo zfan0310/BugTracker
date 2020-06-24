@@ -1,6 +1,8 @@
-﻿using BugTrack.DAL;
+﻿using BugTrack.BAL;
+using BugTrack.DAL;
 using BugTrack.DTO;
 using BugTrack.IBLL;
+using BugTrack.IDAL;
 using BugTrack.Models;
 using System;
 using System.Collections.Generic;
@@ -37,23 +39,72 @@ namespace BLL
             }
         }
 
+        public async Task CreateRole(string name)
+        {
+            using(IRoleService roleSvc=new RoleService())
+            {
+                await roleSvc.Create(new Roles()
+                {
+                    Name=name,
+                });
+            }
+        }
+
+        public async Task CreateUserRoles(Guid userId, Guid roleId)
+        {
+           using(IUserRoleService userRoleSvc=new UserRoleService())
+            {
+                await userRoleSvc.Create(new UserRoles()
+                {
+                    UserId=userId,
+                    RolesId=roleId,
+                });
+            }
+        }
+
+        public async Task<List<RoleDto>> GetAllRoles()
+        {
+            using(IRoleService roleSvc=new RoleService())
+            {
+                return await roleSvc.GetAll().Select(r=>new RoleDto() 
+                {
+                    Id=r.Id,
+                    Name=r.Name
+                }).ToListAsync();
+            }
+        }
+
+        public async Task<List<UserDto>> GetAllUsers()
+        {
+            using(IUserService userSvc = new UserService())
+            {
+                return await userSvc.GetAll().Select(u=>new UserDto() 
+                {
+                    Id=u.Id,
+                    UserName=u.UserName,
+                }).ToListAsync();
+            }
+
+           
+        }
+
         public async Task GetBackPassword(string email)
         {
             throw new NotImplementedException();
         }
 
-        public async Task<UserInfoDto> GetUserByEmail(string email)
+        public async Task<UserDto> GetUserByEmail(string email)
         {
             using (BugTrack.IDAL.IUserService userService = new BugTrack.DAL.UserService())
             {
                 if (await userService.GetAll().AnyAsync(m => m.Email == email))
                 {
                     return await userService.GetAll().Where(m => m.Email == email).Select(m =>
-                        new BugTrack.DTO.UserInfoDto()
+                        new BugTrack.DTO.UserDto()
                         {
                             Id = m.Id,
                             Email = m.Email,
-                            PhoneNumber = m.PhoneNumber,
+                            UserName=m.UserName
                         }).FirstAsync();
                 }
                 else
@@ -63,7 +114,26 @@ namespace BLL
             }
         }
 
-        // public async Task<bool> Login(string email, string password, Guid userId)
+        public async Task<string>GetUserRole(Guid userId)
+        {
+            IUserRoleService userRoleSvc = new UserRoleService();
+            var userRole = await userRoleSvc.GetAll().Where(r => r.UserId == userId).FirstOrDefaultAsync();
+            IRoleService roleSvc = new RoleService();
+
+            if(await roleSvc.GetAll().Where(r => r.Id == userRole.RolesId).Select(y => y.Name)
+            .FirstOrDefaultAsync()!=string.Empty)
+            {
+                string x = await roleSvc.GetAll().Where(r => r.Id == userRole.RolesId).Select(y => y.Name)
+            .FirstOrDefaultAsync();
+                return x;
+            }
+            else
+            {
+                throw new Exception("Your Don't Have Any Role");
+            }
+                
+        }
+
         public bool Login(string email, string password,string name, out Guid userId)
         {
             using (BugTrack.IDAL.IUserService userService = new BugTrack.DAL.UserService())
@@ -83,10 +153,6 @@ namespace BLL
                     return true;
                  }
             }
-            //using (BugTrack.IDAL.IUserService userService = new BugTrack.DAL.UserService())
-            //{
-            //    return await userService.GetAll().
-            //        AnyAsync(m => m.Email == email && m.Password == password);
         }
 
         public async Task Register(string email, string password,string name)

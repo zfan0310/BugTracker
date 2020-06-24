@@ -107,7 +107,7 @@ namespace BLL
             {
                 await ticketStatusSvc.Create(new TicketStatuses()
                 {
-
+                    Name=name,
                 });
             }
         }

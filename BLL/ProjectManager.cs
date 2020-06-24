@@ -15,7 +15,6 @@ namespace BLL
     {
         public async Task CreateProject(string name,Guid userId)
         {
-
             using (var projectService = new ProjectService())
             {
                 var project = new Projects()

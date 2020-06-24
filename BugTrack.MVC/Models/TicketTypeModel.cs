@@ -9,8 +9,8 @@ namespace BugTrack.MVC.Models
     public class TicketTypeModel
     {
         [Required]
-        [MaxLength(200)]
-        
+        [StringLength(maximumLength:200)]
+        [Display(Name ="Ticket Type")]
         public string Name { get; set; }
     }
 }

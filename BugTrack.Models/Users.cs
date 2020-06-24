@@ -14,8 +14,8 @@ namespace BugTrack.Models
             this.OwnerTickets = new HashSet<Tickets>();
             this.UserClaims = new HashSet<UserClaims>();
             this.UserLongins = new HashSet<UserLongins>();
-            this.Roles = new HashSet<Roles>();
-            this.Projects = new HashSet<Projects>();
+            this.UserRoles = new HashSet<UserRoles>();
+            this.ProjectUsers = new HashSet<ProjectUsers>();
             this.AssignedTickets = new HashSet<Tickets>();
             this.TicketNotifications = new HashSet<TicketNotifications>();
             this.TicketHistories = new HashSet<TicketHistories>();
@@ -36,10 +36,10 @@ namespace BugTrack.Models
         public bool LockoutEnable { get; set; } = false;
         [MaxLength(50)]
         public string UserName { get; set; }
-        public virtual ICollection<Roles> Roles { get; set; }
+        public virtual ICollection<UserRoles> UserRoles { get; set; }
         public virtual ICollection<UserClaims> UserClaims { get; set; }
         public virtual ICollection<UserLongins> UserLongins { get; set; }
-        public virtual ICollection<Projects> Projects { get; set; }
+        public virtual ICollection<ProjectUsers> ProjectUsers { get; set; }
         public virtual ICollection<Tickets> OwnerTickets { get; set; }
         public virtual ICollection<Tickets> AssignedTickets { get; set; }
         public virtual ICollection<TicketNotifications> TicketNotifications { get; set; }

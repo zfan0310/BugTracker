@@ -65,6 +65,7 @@
     <Compile Include="IUserClaimService.cs" />
     <Compile Include="IUserLoginsService.cs" />
     <Compile Include="IRoleService.cs" />
+    <Compile Include="IUserRoleService.cs" />
     <Compile Include="IUserService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

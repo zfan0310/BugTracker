@@ -130,14 +130,20 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ProjectController.cs" />
     <Compile Include="Controllers\TicketController.cs" />
+    <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Filter\TrackAuthattribute.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\LoginModel.cs" />
     <Compile Include="Models\ProjectModel.cs" />
+    <Compile Include="Models\RoleModel.cs" />
+    <Compile Include="Models\TicketCommentModel.cs" />
+    <Compile Include="Models\TicketPriorityModel.cs" />
+    <Compile Include="Models\TicketStatuModel.cs" />
     <Compile Include="Models\TicketTypeModel.cs" />
     <Compile Include="Models\UserModel.cs" />
+    <Compile Include="Models\UserRoleModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -182,6 +188,10 @@
     <Content Include="Views\Ticket\CreateTicketType.cshtml" />
     <Content Include="Views\Ticket\TicketTypeList.cshtml" />
     <Content Include="Views\Ticket\GetTicketsByUserId.cshtml" />
+    <Content Include="Views\Ticket\CreateTicketStatus.cshtml" />
+    <Content Include="Views\Ticket\CreateTicketPriority.cshtml" />
+    <Content Include="Views\User\CreateRole.cshtml" />
+    <Content Include="Views\Home\CreateUserRole.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

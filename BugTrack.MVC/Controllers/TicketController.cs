@@ -21,6 +21,50 @@ namespace BugTrack.MVC.Controllers
         /// 
         /// </summary>
         /// <returns></returns>
+        
+       [HttpGet]
+        public ActionResult CreateTicketPriority()
+        {
+            return View();
+        }
+        [HttpPost]
+        public async Task<ActionResult> CreateTicketPriority(TicketPriorityModel t)
+        {
+            if (ModelState.IsValid)
+            {
+                IBLL.ITicketManager ticketManager = new TicketManager();
+                await ticketManager.CreateTicketPriority(t.Name);
+                return Redirect(Url.Action("Index", "Home"));
+            }
+            ModelState.AddModelError("", "There are some wrong here");
+            return View(t);
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet]
+        public ActionResult CreateTicketStatus()
+        {
+            return View();
+        }
+        [HttpPost]
+        public async Task< ActionResult> CreateTicketStatus(TicketStatuModel t)
+        {
+            if (ModelState.IsValid)
+            {
+                IBLL.ITicketManager ticketManager = new TicketManager();
+                await ticketManager.CreateTicketStatus(t.Name);
+                return Redirect(Url.Action("Index", "Home"));
+            }
+            ModelState.AddModelError("", "There are some wrong here");
+            return View(t);
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        //CreateTicketComment
         [HttpGet]
         public ActionResult CreateTicketType()
         {
@@ -37,15 +81,17 @@ namespace BugTrack.MVC.Controllers
                 return RedirectToAction("TicketTypeList");
             }
             ModelState.AddModelError("", "There are some wrong here");
-            return View();
+            return View(m);
         }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         [HttpGet]
         public async Task< ActionResult> TicketTypeList()
         {
             return View(await new TicketManager().GetAllTicketType());
         }
-
-        /*
 
         /*
         [HttpGet]

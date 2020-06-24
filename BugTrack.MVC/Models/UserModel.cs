@@ -17,9 +17,10 @@ namespace BugTrack.MVC.Models
 
         [Required]
         [StringLength(maximumLength: 50, MinimumLength = 6)]
-        
+        [DataType(DataType.Password)]
         public string Password { get; set; }
         [Required]
+        [DataType(DataType.Password)]
         [Compare(nameof(Password))]
         public string PasswordConfirmed { get; set; }
     }

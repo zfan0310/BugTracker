@@ -11,12 +11,12 @@ namespace BugTrack.Models
     {
         public Roles()
         {
-            this.Users = new HashSet<Users>();
+            this.UserRoles = new HashSet<UserRoles>();
         }
 
         [StringLength(maximumLength: 50, MinimumLength = 6)]
         [Required]
         public string Name { get; set; }
-        public virtual ICollection<Users> Users { get; set; }
+        public virtual ICollection<UserRoles> UserRoles { get; set; }
     }
 }

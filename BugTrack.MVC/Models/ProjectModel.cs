@@ -9,7 +9,8 @@ namespace BugTrack.MVC.Models
     public class ProjectModel
     {
         [Required]
-        [MaxLength(5000)]
+        [StringLength(maximumLength: 1000)]
+        [Display(Name="Project Name")]
         public string Name { get; set; }
     }
 }

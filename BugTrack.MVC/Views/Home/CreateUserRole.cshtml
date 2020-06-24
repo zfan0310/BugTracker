@@ -1,0 +1,14 @@
+﻿
+@{
+    ViewBag.Title = "CreateUserRole";
+}
+
+<h2>CreateUserRole</h2>
+<div>
+    @using (Html.BeginForm())
+    {
+        <div>User Name: @Html.DropDownList("UsersList")</div>
+        <div>Roles: @Html.DropDownList("RolesList")</div>
+        <input type="submit" value="Submit" />
+    }
+</div>

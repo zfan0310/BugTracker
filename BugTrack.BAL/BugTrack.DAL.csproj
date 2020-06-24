@@ -65,6 +65,7 @@
     <Compile Include="TicketStatusService.cs" />
     <Compile Include="TicketTypeService.cs" />
     <Compile Include="UserClaimService.cs" />
+    <Compile Include="UserRoleService.cs" />
     <Compile Include="UserService.cs" />
   </ItemGroup>
   <ItemGroup>
