@@ -1,4 +1,5 @@
 ﻿using BugTrack.DTO;
+using BugTrack.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,7 +13,7 @@ namespace BugTrack.IBLL
         Task _CreateProjectUser(Guid userId, Guid projectId);
         Task CreateProject(string name,Guid userId);
         Task<List<DTO.ProjectDto>> GetProjectByEmail(string email);
-        Task<List<DTO.ProjectDto>> GetAllProjectByUserId(Guid userId);
+        Task<List<Projects>> GetAllProjectByUserId(Guid userId);
         Task RemoveProjectById(Guid ProjectId);
         Task RemoveProjectByEmail(Guid UserEmail);
         Task EditProject(Guid ProjectId, string newName);

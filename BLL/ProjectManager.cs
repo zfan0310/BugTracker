@@ -45,14 +45,25 @@ namespace BLL
             throw new NotImplementedException();
         }
 
-        public async Task<List<ProjectDto>> GetAllProjectByUserId(Guid userId)
+        public async Task<List<Projects>> GetAllProjectByUserId(Guid userId)
         {
-            
-            
+            Context db = new Context();
+            var projects = db.Projects;
             //find user role if is admin
             IUserManager userSvc = new UserManager();
             string userRole= await userSvc.GetUserRole(userId);
-            using(IProjectService projectSvc=new ProjectService())
+
+            if (userRole == "Admin" || userRole == "Submitter")
+            {
+                return projects.ToList();
+            }
+            else
+            {
+                return projects.Where(
+                    pj => pj.Id == pj.ProjectUsers.Where(pu=>pu.UserId==userId)
+                    .FirstOrDefault().ProjectId).ToList();
+            }
+            /*using(IProjectService projectSvc=new ProjectService())
             {
                 ITicketService ticketSvc = new TicketService();
                 if (userRole == "Admin"|| userRole == "Submitter")
@@ -89,13 +100,10 @@ namespace BLL
 
                         }
                         return ProjectList;
-                        /* var id= projectUserSvc.GetAll().Where(pu => pu.UserId == userId).FirstOrDefaultAsync()
-                          .Result.ProjectId;
-                          return await projectSvc.GetAll().AnyAsync(p => p.Id ==id)*/
                     }
                 }
                 
-            }
+            }*/
         }
 
         public Task<List<ProjectDto>> GetProjectByEmail(string email)

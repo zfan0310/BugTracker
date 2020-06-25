@@ -33,9 +33,6 @@ namespace BugTrack.MVC.Controllers
         [TrackAuthattribute]
         public async Task<ActionResult> SubmitterPage()
         {
-            Context db = new Context();
-            
-
             IProjectManager projectManager = new ProjectManager();
             var x = await projectManager.GetAllProjectByUserId(Guid.Parse(Session["userId"].ToString()));
 

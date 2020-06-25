@@ -19,6 +19,13 @@
 <div>
     @foreach (var item in Model)
     {
-        <p>@item.Name</p>
+        <h2 style="color:red">Project Name:@item.Name</h2>
+        foreach (var ticket in item.Tickets)
+        {
+            <div style="background-color:lightblue">
+                <p>Ticket title:@ticket.Title</p>
+                <p>Ticket content:@ticket.Description</p>
+            </div>
+        }
     }
 </div>
