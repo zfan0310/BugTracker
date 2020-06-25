@@ -24,7 +24,7 @@ namespace BugTrack.Models
         [Required]
         [DataType(DataType.Text)]
         public string Description { get; set; }
-        public DateTime Updated { get; set; }
+        public DateTime? Updated { get; set; }
         [ForeignKey("Projects")]
         public Guid ProjectId { get; set; }
         public virtual Projects Projects { get; set; }
@@ -41,7 +41,7 @@ namespace BugTrack.Models
         public Guid OwnerUserId { get; set; }
         public virtual Users OwnerUsers { get; set; }
         [ForeignKey("AssignedToUser")]
-        public Guid AssignedToUserId { get; set; }
+        public Guid? AssignedToUserId { get; set; }
         public virtual Users AssignedToUser { get; set; }
         public virtual ICollection<TicketNotifications> TicketNotifications { get; set; }
         public virtual ICollection<TicketHistories> TicketHistories { get; set; }

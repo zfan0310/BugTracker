@@ -139,6 +139,7 @@
     <Compile Include="Models\ProjectModel.cs" />
     <Compile Include="Models\RoleModel.cs" />
     <Compile Include="Models\TicketCommentModel.cs" />
+    <Compile Include="Models\TicketModel.cs" />
     <Compile Include="Models\TicketPriorityModel.cs" />
     <Compile Include="Models\TicketStatuModel.cs" />
     <Compile Include="Models\TicketTypeModel.cs" />
@@ -192,6 +193,9 @@
     <Content Include="Views\Ticket\CreateTicketPriority.cshtml" />
     <Content Include="Views\User\CreateRole.cshtml" />
     <Content Include="Views\Home\CreateUserRole.cshtml" />
+    <Content Include="Views\Home\ManagerPage.cshtml" />
+    <Content Include="Views\Home\SubmitterPage.cshtml" />
+    <Content Include="Views\Ticket\CreateTicket.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -221,6 +225,10 @@
     <ProjectReference Include="..\BugTrack.IBLL\BugTrack.IBLL.csproj">
       <Project>{a5e61b96-45d0-4eb0-8776-b39f56d09888}</Project>
       <Name>BugTrack.IBLL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\BugTrack.Models\BugTrack.Models.csproj">
+      <Project>{83BBCAE2-B604-4668-9548-94A1728A5A40}</Project>
+      <Name>BugTrack.Models</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>

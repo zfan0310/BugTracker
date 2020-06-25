@@ -12,7 +12,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace BLL
-{
+{ 
     public class UserManager : IUserManager
     {
         public async Task ChangePassword(string email, string oldPassword, string newPassword)
@@ -68,7 +68,7 @@ namespace BLL
             {
                 return await roleSvc.GetAll().Select(r=>new RoleDto() 
                 {
-                    Id=r.Id,
+                    RoleId=r.Id,
                     Name=r.Name
                 }).ToListAsync();
             }
@@ -80,12 +80,10 @@ namespace BLL
             {
                 return await userSvc.GetAll().Select(u=>new UserDto() 
                 {
-                    Id=u.Id,
+                    UserId=u.Id,
                     UserName=u.UserName,
                 }).ToListAsync();
             }
-
-           
         }
 
         public async Task GetBackPassword(string email)
@@ -102,7 +100,7 @@ namespace BLL
                     return await userService.GetAll().Where(m => m.Email == email).Select(m =>
                         new BugTrack.DTO.UserDto()
                         {
-                            Id = m.Id,
+                            UserId = m.Id,
                             Email = m.Email,
                             UserName=m.UserName
                         }).FirstAsync();

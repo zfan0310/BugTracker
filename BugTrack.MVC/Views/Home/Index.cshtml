@@ -13,3 +13,12 @@
 <h3>@Html.ActionLink("CreateRole", "CreateRole", "User")</h3>
 <h3>@Html.ActionLink("CreateTicketType", "CreateTicketType", "Ticket")</h3>
 <h3>@Html.ActionLink("CreateUserRole", "CreateUserRole", "Home")</h3>
+
+<br /><br />
+<h2>My Projects List:</h2>
+<div>
+    @foreach (var item in Model)
+    {
+        <p>@item.Name</p>
+    }
+</div>

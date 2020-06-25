@@ -1,4 +1,6 @@
 ﻿using BLL;
+using BugTrack.IBLL;
+using BugTrack.Models;
 using BugTrack.MVC.Filter;
 using BugTrack.MVC.Models;
 using System;
@@ -92,27 +94,37 @@ namespace BugTrack.MVC.Controllers
         {
             return View(await new TicketManager().GetAllTicketType());
         }
-
-        /*
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         [HttpGet]
-        public ActionResult CreateProject()
+        public async Task< ActionResult> CreateTicket()
         {
+            ITicketManager ticketManger = new TicketManager();
+            ViewBag.typeId = new SelectList(await ticketManger.GetAllTicketType(), "Id", "Name");
+            ViewBag.priorityId = new SelectList(await ticketManger.GetAllPriority(), "Id", "Name");
+            ViewBag.statusId = new SelectList(await ticketManger.GetAllTicketStatus(), "Id", "Name");
             return View();
         }
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult CreateTicket(ProjectModel p)
+        //[ValidateAntiForgeryToken]
+        public async Task< ActionResult> CreateTicket(string title, string description,
+             Guid ownerUserId, Guid typeId,
+             Guid priorityId, Guid statusId, Guid projectId)
         {
             if (ModelState.IsValid)
             {
-                IBLL.IProjectManager projectManager = new ProjectManager();
-                projectManager.CreateProject(p.Name,
-                    Guid.Parse(Session["userId"].ToString()));
-                return Redirect(Url.Action("Index", "Home"));
+                IBLL.ITicketManager ticketManager = new TicketManager();
+               await ticketManager.CreateTicket(title, description,
+             ownerUserId, typeId,
+             priorityId, statusId, projectId);
+                return Redirect(Url.Action("SubmitterPage", "Home"));
             }
             ModelState.AddModelError("", "You are always wrong!");
-            return View(p);
-        }*/
+            return View();
+        }
+
         [HttpGet]
         [TrackAuthattribute]
         public async Task< ActionResult> GetTicketsByUserId()
@@ -120,11 +132,5 @@ namespace BugTrack.MVC.Controllers
             var userId = Guid.Parse(Session["userId"].ToString());
             return View(await new TicketManager().GetAllTicketByUserId(userId));
         }
-        /* 
-        public async Task<ActionResult> GetAllTicketByType()
-        {
-            var userId = Guid.Parse(Session["userId"].ToString());
-            return View(await new TicketManager().GetAllTicketByUserId(userId));
-        }*/
     }
 }

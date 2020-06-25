@@ -36,3 +36,4 @@ C:\Users\Dolphin\Desktop\新建文件夹\BugTrack.Models\obj\Debug\BugTrack.Mode
 C:\Users\Dolphin\Desktop\新建文件夹\BugTrack.Models\obj\Debug\BugTrack.Models.pdb
 C:\Users\Dolphin\Desktop\新建文件夹\BugTrack.Models\obj\Debug\BugTrack.Models.Migrations._6.resources
 C:\Users\Dolphin\Desktop\新建文件夹\BugTrack.Models\obj\Debug\BugTrack.Models.Migrations._7.resources
+C:\Users\Dolphin\Desktop\新建文件夹\BugTrack.Models\obj\Debug\BugTrack.Models.Migrations._9.resources

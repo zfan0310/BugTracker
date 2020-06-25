@@ -1,0 +1,18 @@
+﻿
+@{
+    ViewBag.Title = "ManagerPage";
+}
+
+<h2>ManagerPage</h2>
+
+<br />
+<br />
+<h2>My Projects List:</h2>
+
+<h3>@Html.ActionLink("AddProject", "CreateProject", "Project")</h3>
+<div>
+    @foreach (var item in Model)
+    {
+        <p>@item.Name</p>
+    }
+</div>

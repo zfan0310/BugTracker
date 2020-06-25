@@ -5,6 +5,7 @@ using BugTrack.IDAL;
 using BugTrack.Models;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -44,9 +45,57 @@ namespace BLL
             throw new NotImplementedException();
         }
 
-        public Task<List<ProjectDto>> GetAllProjectByUserId(Guid userId)
+        public async Task<List<ProjectDto>> GetAllProjectByUserId(Guid userId)
         {
-            throw new NotImplementedException();
+            
+            
+            //find user role if is admin
+            IUserManager userSvc = new UserManager();
+            string userRole= await userSvc.GetUserRole(userId);
+            using(IProjectService projectSvc=new ProjectService())
+            {
+                ITicketService ticketSvc = new TicketService();
+                if (userRole == "Admin"|| userRole == "Submitter")
+                {
+                    return await projectSvc.GetAll().Select(p => new ProjectDto()
+                    {
+                        Id = p.Id,
+                        Name = p.Name,
+                    }).ToListAsync();
+                }
+                else
+                {
+                    using(IProjectUsersService projectUserSvc=new ProjectUsersService())
+                    {
+                        List<ProjectDto> ProjectList = new List<ProjectDto>();
+
+                        foreach (var pu in  projectUserSvc.GetAll())
+                        {
+                            foreach (var p in projectSvc.GetAll())
+                            {
+                                if (pu.UserId == userId)
+                                {
+                                    var x = pu.ProjectId;
+                                    if (p.Id == x)
+                                    {
+                                        ProjectList.Add(new ProjectDto()
+                                        {
+                                            Id = p.Id,
+                                            Name = p.Name,
+                                        });
+                                    }
+                                }
+                            }
+
+                        }
+                        return ProjectList;
+                        /* var id= projectUserSvc.GetAll().Where(pu => pu.UserId == userId).FirstOrDefaultAsync()
+                          .Result.ProjectId;
+                          return await projectSvc.GetAll().AnyAsync(p => p.Id ==id)*/
+                    }
+                }
+                
+            }
         }
 
         public Task<List<ProjectDto>> GetProjectByEmail(string email)
@@ -63,5 +112,10 @@ namespace BLL
         {
             throw new NotImplementedException();
         }
+
+       /* public Task<List<ProjectDto>> GetAllProject()
+        {
+            
+        }*/
     }
 }

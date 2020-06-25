@@ -9,6 +9,6 @@ namespace BugTrack.DTO
     public class TicketPriorityDto
     {
         public Guid Id { get; set; }
-        public string TicketPriorityName { get; set; }
+        public string Name { get; set; }
     }
 }

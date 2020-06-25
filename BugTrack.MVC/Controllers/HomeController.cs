@@ -15,15 +15,36 @@ namespace BugTrack.MVC.Controllers
     public class HomeController : Controller
     {
         [TrackAuthattribute]
-        public ActionResult Index()
+        public async Task< ActionResult> Index()
         {
-            return View();
+            IProjectManager projectManager = new ProjectManager();
+            var x=await projectManager.GetAllProjectByUserId(Guid.Parse(Session["userId"].ToString()));
+            return View(x);
+        }
+
+        [TrackAuthattribute]
+        public async Task<ActionResult> ManagerPage()
+        {
+            IProjectManager projectManager = new ProjectManager();
+            var x = await projectManager.GetAllProjectByUserId(Guid.Parse(Session["userId"].ToString()));
+            return View(x);
+        }
+
+        [TrackAuthattribute]
+        public async Task<ActionResult> SubmitterPage()
+        {
+            Context db = new Context();
+            
+
+            IProjectManager projectManager = new ProjectManager();
+            var x = await projectManager.GetAllProjectByUserId(Guid.Parse(Session["userId"].ToString()));
+
+            return View(x);
         }
         [TrackAuthattribute]
         public ActionResult About()
         {
             ViewBag.Message = "Your application description page.";
-
             return View();
         }
         [HttpGet]
@@ -111,7 +132,7 @@ namespace BugTrack.MVC.Controllers
                     }
                     else if (userRoleName == "Manager")
                     {
-                        return Content("Manager");
+                        return Redirect(Url.Action("ManagerPage", "Home"));
                     }
                     else if (userRoleName == "Developer")
                     {
@@ -119,7 +140,7 @@ namespace BugTrack.MVC.Controllers
                     }
                     else if (userRoleName == "Submitter")
                     {
-                        return Content("Submitter");
+                        return Redirect("SubmitterPage");
                     }
                     else
                     {
@@ -140,20 +161,22 @@ namespace BugTrack.MVC.Controllers
         public async Task< ActionResult> CreateUserRole()
         {
             IUserManager userManager = new UserManager();
-            ViewBag.RolesList = new SelectList(await userManager.GetAllRoles(), "Id", "Name");
-            ViewBag.UsersList = new SelectList(await userManager.GetAllUsers(), "Id", "UserName");
+            ViewBag.RoleId = new SelectList(await userManager.GetAllRoles(), "RoleId", "Name");
+            ViewBag.UserId = new SelectList(await userManager.GetAllUsers(), "UserId", "UserName");
             return View();
         }
         [HttpPost]
         //[ValidateAntiForgeryToken]
         [TrackAuthattribute]
-        public async Task<ActionResult> CreateUserRole(Guid userId,Guid roleId)
+        public async Task<ActionResult> CreateUserRole(Guid UserId, Guid RoleId)
         {
             IUserManager userManager = new UserManager();
             
-            await userManager.CreateUserRoles(userId, roleId);
+            await userManager.CreateUserRoles(UserId, RoleId);
             ModelState.AddModelError("", "You are always wrong!");
             return Redirect(Url.Action("Index", "Home"));
         }
+
+
     }
 }

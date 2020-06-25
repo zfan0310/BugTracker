@@ -9,7 +9,9 @@ namespace BugTrack.IBLL
 {
     public interface ITicketManager
     {
-        Task CreateTicket(string title, string description, Guid typeId, Guid projectId, Guid priorityId, Guid statusId, Guid ownerUserId, Guid assignedToUserId, Guid userId);///////////////
+        Task CreateTicket(string title, string description,
+             Guid ownerUserId, Guid typeId,
+             Guid priorityId, Guid statusId, Guid projectId);///////////////
         Task CreateTicketType(string name);
         Task <List<TicketTypeDto>> GetAllTicketType();
         Task CreateTicketStatus(string name);
@@ -24,6 +26,9 @@ namespace BugTrack.IBLL
         Task<List<DTO.TicketDto>> GetAllTicketByUserId(Guid userId);
         Task<List<DTO.TicketDto>> GetAllTicketByType(Guid ticketTypeId);
         Task RemoveTicketById(Guid TicketId);
+        Task<List<TicketPriorityDto>> GetAllPriority();
+        Task<List<TicketDto>> GetAllTicket();
+        Task<List<TicketStatusDto>> GetAllTicketStatus();
         Task EditTicket(Guid TicketId, string title,string description,Guid typeId,Guid priorityId,Guid statusId);
     }
 }

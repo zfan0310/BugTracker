@@ -15,9 +15,9 @@ namespace BLL
 {
     public class TicketManager : ITicketManager
     {
-        public async Task CreateTicket(string title, string description, 
-            Guid typeId,Guid projectId,Guid priorityId,Guid statusId,
-            Guid ownerUserId,Guid assignedToUserId, Guid userId)
+        public async Task CreateTicket(string title, string description,
+             Guid ownerUserId, Guid typeId, 
+             Guid priorityId, Guid statusId, Guid projectId)
         {
             using(var ticketSvc=new TicketService())
             {
@@ -29,11 +29,12 @@ namespace BLL
                     TicketPriorityId=priorityId,
                     TicketStatusId=statusId,
                     OwnerUserId=ownerUserId,
-                    AssignedToUserId=assignedToUserId
+                    ProjectId=projectId,
+                    Updated=DateTime.Now
                 };
                 await ticketSvc.Create(ticket);
 
-                Guid ticketId = ticket.Id;
+               /* Guid ticketId = ticket.Id;
                 using(var notificationSvc=new TicketNotificationService())
                 {
                     await notificationSvc.Create(new TicketNotifications()
@@ -41,7 +42,7 @@ namespace BLL
                         TicketId=ticketId,
                         UserId=userId,
                     });
-                }
+                }*/
                 //TicketNotification achieve
             }
         }
@@ -133,6 +134,39 @@ namespace BLL
             }
         }
 
+        public async Task<List<TicketPriorityDto>> GetAllPriority()
+        {
+            using (ITicketPriorityService x = new TicketPriorityService())
+            {
+                return await x.GetAll().Select(t => new TicketPriorityDto()
+                {
+                    Id = t.Id,
+                    Name = t.Name,
+                }).ToListAsync();
+            }
+        }
+
+        public async Task<List<TicketDto>> GetAllTicket()
+        {
+            using(ITicketService ticketSvc=new TicketService())
+            {
+                return await ticketSvc.GetAll().Select(s=>new TicketDto()
+                {
+                    Id = s.Id,
+                    Title = s.Title,
+                    Description = s.Description,
+                    Created = s.Created,
+                    Updated = s.Updated,
+                    ProjectId = s.ProjectId,
+                    ticketTypeId = s.TicketTypeId,
+                    TicketPriorityId = s.TicketPriorityId,
+                    TicketStatusId = s.TicketStatusId,
+                    OwnerUserId = s.OwnerUserId,
+                    AssignedToUserId = s.AssignedToUserId
+                }).ToListAsync();
+            }
+        }
+
         /* public async Task EditTicketType(string name)
          {
              throw new NotImplementedException();
@@ -179,6 +213,18 @@ namespace BLL
                       OwnerUserId=s.OwnerUserId,
                       AssignedToUserId=s.AssignedToUserId
                     }).ToListAsync();
+            }
+        }
+
+        public async Task<List<TicketStatusDto>> GetAllTicketStatus()
+        {
+            using (ITicketStatusService x = new TicketStatusService())
+            {
+                return await x.GetAll().Select(t => new TicketStatusDto()
+                {
+                    Id = t.Id,
+                    Name = t.Name,
+                }).ToListAsync();
             }
         }
 

@@ -1,0 +1,21 @@
+﻿
+
+<h2>SubmitterPage</h2>
+
+<h2>Please Find Bugs</h2>
+<div style="float:left">
+    @foreach (var item in Model)
+    {
+    <div>
+        @item.Name
+        <div>
+            <a href="@Url.Action("CreateTicket","Ticket", new { projectId = item.Id,ownerUserId=Guid.Parse(Session["userId"].ToString())})">Find Bug!</a>
+        </div>
+
+    </div>
+    }
+</div>
+
+<div style="float:right;width:500px;height:500px;background-color:lightblue">
+
+</div>

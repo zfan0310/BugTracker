@@ -1,0 +1,16 @@
+﻿@model BugTrack.MVC.Models.TicketModel
+
+
+<h2>CreateTicket</h2>
+<div>
+    @using (Html.BeginForm())
+    {
+        @Html.TextBox("title")
+        @Html.TextBox("description")
+        @Html.DropDownList("priorityId")
+        @Html.DropDownList("statusId")
+        @Html.DropDownList("typeId")
+        <input type="submit" value="Submit" />
+    }
+
+</div>
